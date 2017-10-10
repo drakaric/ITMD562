@@ -54,7 +54,7 @@ app.post('/hands', function(request, response) {
 	} else response.status(404).send('\'cards\' parameter not found');
 });
 
-app.post('/hands/:handId', function(request, response) {
+app.put('/hands/:handId', function(request, response) {
 	var hand = getHandById(request.params.handId);
 	var cards = request.body.cards;
 
