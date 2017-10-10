@@ -1,0 +1,23 @@
+{
+  "name": "week7-assignment",
+  "version": "1.0.0",
+  "description": "Week 7 Assignment",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drakaric/ITMD562/tree/master/Assignments/Week%207"
+  },
+  "keywords": [
+    "week",
+    "7"
+  ],
+  "dependencies": {
+    "express": "*",
+    "mongodb": "*"
+  },
+  "author": "Daniel Rakaric",
+  "license": "MIT"
+}
