@@ -1,0 +1,38 @@
+- if (user)
+	br
+	h4 User Search Result
+	- if (status === 404)
+		div.alert.alert-info
+			p No user was found
+			br
+			a(href="#", onclick="window.history.back();") <- Go back
+	- else
+		div.table-responsive
+			table.table.table-hover
+				thead
+					tr
+						th Name
+						th Email
+						th Actions
+				tbody
+					tr
+						td #{user.name}
+						td #{user.email}
+						td
+							div.btn-toolbar
+								button.btn.btn-info(type="button", data-toggle="modal", data-target="#findReminder") Find Reminder
+								button(id="userReminders-" + userId).view-reminders.btn.btn-info View All Reminders
+								button(id="userId-" + userId).delete-user.btn.btn-info Delete
+
+							// Find Reminder for User with Title
+							div#findReminder.modal.fade(role="dialog")
+								div.modal-dialog
+									div.modal-content
+										div.modal-header
+											button(type="button", data-dismiss="modal").close &times;
+											h4.modal-title Find a Reminder by Title
+										div.modal-body
+											form(name="findReminder", method="GET" action="/users/#{userId}/reminders")
+												label(for="title") Reminder Title:
+												input(type="text", name="title" placeholder="Drink Ovaltine" required)#name.form-control
+												button(type="submit").btn.btn-info Find Reminder

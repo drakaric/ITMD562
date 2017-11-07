@@ -1,0 +1,64 @@
+- if (reminders)
+	br
+	a(href="/users/#{userId}") <- Go back to User
+	h4
+		span Reminders
+			- if (query !== undefined && query != "")
+				| &nbsp;with title: '#{query}'
+	div.btn-toolbar
+		button.btn.btn-info(type="button", data-toggle="modal", data-target="#createReminder") Create New Reminder
+		- if (status == 200 && (query === undefined || query == ""))
+			button.delete-reminders.btn.btn-info Remove All Reminders
+
+	// Create Reminder Modal
+	div#createReminder.modal.fade(role="dialog")
+		div.modal-dialog
+			div.modal-content
+				div.modal-header
+					button(type="button", data-dismiss="modal").close &times;
+					h4.modal-title Create a New Reminder
+				div.modal-body
+					form(name="createReminder")
+						label(for="title") Title:
+						input(type="text", name="title" placeholder="Create Reminder")#title.form-control
+						br
+						label(for="desc") Description:
+						input(type="text", name="desc" placeholder="This is a reminder to create a reminder")#desc.form-control
+						br
+						button(type="submit").btn.btn-primary Create Reminder
+
+	- if (status == 404)
+		div.alert.alert-info
+			p No reminders were found
+			br
+			a(href="#", onclick="window.history.back();") <- Go back
+
+	- else
+		div.table-responsive
+			table.table.table-hover
+				thead
+					tr
+						th Title
+						th Actions
+				tbody
+					for item in reminders
+						tr
+							td #{item.title}
+							td
+								div.btn-toolbar
+									button.btn.btn-info(type="button", data-toggle="modal", data-target="#viewReminder" + item.id) View Details
+									button(data-id="reminder-" + item.id).delete-reminder.btn.btn-info Delete
+
+									// View Reminder Details Modal
+									div(id="viewReminder" + item.id, role="dialog").modal.fade
+										div.modal-dialog
+											div.modal-content
+												div.modal-header
+													button(type="button", data-dismiss="modal").close &times;
+													h4.modal-title View Reminder Details
+												div.modal-body
+													p Title: #{item.title}
+													p Description: #{item.description}
+													p Created Date: #{item.created}
+												div.modal-footer
+													button(data-id="reminder-" + item.id).delete-reminder.btn.btn-info Remove Reminder
