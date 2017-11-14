@@ -1,0 +1,75 @@
+doctype html
+html(lang="en")
+	head
+		title= "ITMD 562 - Assignment 8"
+		link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", rel="stylesheet")
+		link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css", rel="stylesheet")
+		script(src="https://code.jquery.com/jquery-3.2.1.min.js")
+		script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+		style
+			// Main CSS
+			include css/main.css
+		script.
+			// Make user ID globally available for transactions
+			var globalUserId = "#{userId}";			
+		script
+			// Main javascript
+			include js/main.js
+	body
+
+		// Alert Modal
+		div#alertModal.alert.modal.fade(role="dialog")
+			div.modal-dialog
+				div.modal-content
+					div.modal-header
+						button(type="button", data-dismiss="modal").close &times;
+						h4.modal-title
+					div.modal-body
+
+		// Top navigation bar
+		nav.navbar.navbar-inverse
+			div.container
+				div.navbar-header
+					button(type="button", data-toggle="collapse", data-target="#navbar", aria-expanded="false", aria-controls="navbar").navbar-toggle.collapsed
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a(href="/", title="Homepage").navbar-brand ITMD 562 - Assignment 8
+				div#navbar.collapse.navbar-collapse
+					ul.nav.navbar-nav
+						li.active
+							button.btn(type="button", data-toggle="modal", data-target="#createUser") Create User
+
+							// Create User Modal
+							div#createUser.modal.fade(role="dialog")
+								div.modal-dialog
+									div.modal-content
+										div.modal-header
+											button(type="button", data-dismiss="modal").close &times;
+											h4.modal-title Create a New User
+										div.modal-body
+											form(name="createUser")
+												label(for="name") Name:
+												input(type="text", name="name" placeholder="Joe Schmo", minlength="4", required)#name.form-control
+												br
+												label(for="email") Email:
+												input(type="text", name="email" placeholder="jschmo@example.com", minlength="8", required)#email.form-control
+												br
+												button(type="submit").btn.btn-primary Create User
+
+		div.container
+			div.content
+				form(name="searchUserById")
+					label(for="userId") Find a User by ID:
+					div.input-group.small-width
+						input(type="text", name="userId", value="#{userId}", placeholder="Example: 1", minlength="1", maxlength="5", required)#userId.form-control
+						input(type="hidden", name="searchUserById")
+						span.input-group-btn
+							button(type="submit").btn.btn-primary Search
+
+				// Include the user page for results.
+				include fragments/user
+
+				// Include the reminders page for results.
+				include fragments/reminders
